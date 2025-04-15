@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
+import EmployeesData from "./components/EmployeesData";
+import Home from "./components/Home";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [userData, setUserData] = useState(0);
+
+  // use useEffect Hook  to bind data
+
+  useEffect(() => {
+    setUserData(EmployeesData);
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <Home />
+      <div className="table-section">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item, index) => {
+              return (
+                <tr key={index}>
+                  <tr>{item.id}</tr>
+                  <tr>{item.name}</tr>
+                  <tr>{item.age}</tr>
+                  <tr>{item.role}</tr>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
