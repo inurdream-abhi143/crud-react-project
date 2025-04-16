@@ -42,47 +42,103 @@ function App() {
       `Employee id = ${item.id}\nEmployee Name = ${item.name}\nEmployee Age = ${item.age}\nEmployee Role = ${item.role}`
     );
   };
+
+  // handel clear
+  const handelClear = () => {
+    setId("");
+    setName("");
+    setAge("");
+    setRole("");
+    setIsUpDate(false);
+  };
+
+  // handel Add
+  const handelAdd = (e) => {
+    e.preventDefault();
+    if (id === "" || name === "" || age === "" || role === "") {
+      alert(`Please fill all the Field`);
+    } else {
+      const data = [...userData];
+      const newData = {
+        id: id,
+        name: name,
+        age: age,
+        role: role,
+      };
+      data.push(newData);
+      setUserData(data);
+      handelClear();
+    }
+  };
+
+  // handel Update
+  const handelUpdate = (e) => {
+    e.preventDefault();
+
+    const index = userData.findIndex((item) => item.id === id);
+    if (index !== -1) {
+      const updatedData = [...userData];
+      updatedData[index] = {
+        id: id,
+        name: name,
+        age: age,
+        role: role,
+      };
+      setUserData(updatedData);
+      handelClear();
+    }
+  };
   return (
     <>
       <Home />
       <div className="Add-section">
         <form>
-          <label htmlfor="id">Id</label>
+          <label htmlFor="id">Id</label>
           <input
             type="text"
             name="id"
             value={id}
             onChange={(e) => setId(e.target.value)}
+            required
           ></input>
-          <label htmlfor="name">Name</label>
+          <label htmlFor="name">Name</label>
           <input
             type="text"
             name="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
           ></input>
-          <label htmlfor="age">Age</label>
+          <label htmlFor="age">Age</label>
           <input
             type="text"
             name="age"
             value={age}
             onChange={(e) => setAge(e.target.value)}
+            required
           ></input>
-          <label htmlfor="role">Role</label>
+          <label htmlFor="role">Role</label>
           <input
             type="text"
             name="role"
             value={role}
             onChange={(e) => setRole(e.target.value)}
+            required
           ></input>
 
           {isUpDate === true ? (
-            <button className="Adbtn">Update</button>
+            <button className="Adbtn" onClick={(e) => handelUpdate(e)}>
+              Update
+            </button>
           ) : (
-            <button className="Adbtn">Add</button>
+            <button className="Adbtn" onClick={(e) => handelAdd(e)}>
+              Add
+            </button>
           )}
 
-          <button className="Adbtn">Clear</button>
+          <button className="Adbtn" onClick={(e) => handelClear(e)}>
+            Clear
+          </button>
         </form>
       </div>
       <div className="table-section">
